@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { ArrowUpRight, Plane } from "lucide-react";
+import { Plane } from "lucide-react";
 
 export function DiscoveryShowcase() {
   return (
@@ -76,17 +76,6 @@ export function DiscoveryShowcase() {
           <p className="mt-4 text-sm text-white/80">
             Montevideo → São Paulo · Example route
           </p>
-        </div>
-
-        {/* Bottom action */}
-        <div className="absolute right-6 bottom-6 z-10 sm:right-10 sm:bottom-10">
-          <a
-            href="#flight-explorer"
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/45 px-5 py-3 text-xs font-medium text-white backdrop-blur-md transition-colors hover:bg-black/65"
-          >
-            Explore destinations
-            <ArrowUpRight size={15} />
-          </a>
         </div>
       </motion.div>
     </div>

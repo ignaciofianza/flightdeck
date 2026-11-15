@@ -35,6 +35,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
+      data-scroll-behavior="smooth"
       lang="en"
       className={`
         ${spaceGrotesk.variable}
@@ -43,7 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         h-full antialiased
       `}
     >
-      <body className="flex min-h-screen flex-col bg-[#090B0F] text-white">
+      <body className="flex min-h-screen flex-col bg-background text-white">
         {children}
       </body>
     </html>

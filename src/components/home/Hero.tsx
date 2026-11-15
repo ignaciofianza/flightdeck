@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight, ArrowDown, Radio } from "lucide-react";
 
 import { HeroVisual } from "./HeroVisual";
@@ -9,23 +9,42 @@ import { HeroVisual } from "./HeroVisual";
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
+  const reducedMotion = useReducedMotion();
+
+  const scrollToSection = (id: string) => {
+    const section = document.getElementById(id);
+
+    if (!section) return;
+
+    section.scrollIntoView({
+      behavior: reducedMotion ? "instant" : "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <section className="relative isolate overflow-hidden">
+      {/* Atmospheric background */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_75%_45%,rgba(80,120,190,0.07),transparent_60%)]"
       />
 
       <div className="relative mx-auto grid min-h-[calc(100svh-80px)] max-w-7xl items-center gap-14 px-6 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:px-8 lg:py-24">
+        {/* Editorial content */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={reducedMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease }}
+          transition={{
+            duration: 0.8,
+            ease,
+          }}
           className="relative z-10"
         >
+          {/* Eyebrow */}
           <div className="mb-9 inline-flex items-center gap-3">
             <span className="flex size-8 items-center justify-center rounded-lg border border-accent/20 bg-accent/5">
-              <Radio size={15} className="text-accent" />
+              <Radio size={15} strokeWidth={1.5} className="text-accent" />
             </span>
 
             <span className="font-mono text-[10px] tracking-[0.18em] text-accent uppercase">
@@ -33,6 +52,7 @@ export function Hero() {
             </span>
           </div>
 
+          {/* Heading */}
           <h1 className="max-w-2xl font-display text-[clamp(3.5rem,6vw,6.25rem)] leading-[1.04] font-semibold tracking-[-0.065em] text-white">
             The world
             <br />
@@ -41,11 +61,13 @@ export function Hero() {
             <span className="text-accent">to fly.</span>
           </h1>
 
+          {/* Description */}
           <p className="mt-8 max-w-lg text-base leading-8 text-zinc-400 sm:text-lg">
             Discover real-world flights, explore new destinations, and find the
             perfect route for your next simulation.
           </p>
 
+          {/* Actions */}
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <Link
               href="/register"
@@ -54,29 +76,32 @@ export function Hero() {
               Find your next flight
               <ArrowUpRight
                 size={16}
-                className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               />
             </Link>
 
-            <Link
-              href="/#how-it-works"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/10 px-6 py-3.5 text-sm font-medium text-zinc-300 transition-colors hover:border-white/20 hover:text-white"
+            <button
+              type="button"
+              onClick={() => scrollToSection("how-it-works")}
+              className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-white/10 px-6 py-3.5 text-sm font-medium text-zinc-300 transition-colors hover:border-white/20 hover:text-white"
             >
               How it works
-            </Link>
+            </button>
           </div>
 
+          {/* Bottom metadata */}
           <div className="mt-14 flex items-center gap-3 border-t border-white/8 pt-6">
             <span className="size-1.5 rounded-full bg-accent" />
 
             <p className="font-mono text-[10px] tracking-[0.12em] text-zinc-500 uppercase">
-              Discover. Plan. Fly.
+              Discover. Explore. Fly.
             </p>
           </div>
         </motion.div>
 
+        {/* Aircraft visual */}
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
+          initial={reducedMotion ? false : { opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{
             duration: 0.9,
@@ -89,16 +114,22 @@ export function Hero() {
         </motion.div>
       </div>
 
-      <a
-        href="#features"
+      {/* Scroll indicator */}
+      <button
+        type="button"
+        onClick={() => scrollToSection("features")}
         aria-label="Discover features"
-        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-zinc-600 transition-colors hover:text-white lg:flex"
+        className="group absolute bottom-6 left-1/2 hidden -translate-x-1/2 cursor-pointer flex-col items-center gap-2 text-zinc-600 transition-colors hover:text-white lg:flex"
       >
         <span className="font-mono text-[9px] tracking-[0.2em] uppercase">
           Scroll to explore
         </span>
-        <ArrowDown size={15} />
-      </a>
+
+        <ArrowDown
+          size={15}
+          className="transition-transform duration-200 group-hover:translate-y-1 motion-reduce:transform-none"
+        />
+      </button>
     </section>
   );
 }

@@ -3,9 +3,10 @@ import Link from "next/link";
 
 type BrandProps = {
   className?: string;
+  priority?: boolean;
 };
 
-export function Brand({ className = "" }: BrandProps) {
+export function Brand({ className = "", priority = false }: BrandProps) {
   return (
     <Link
       href="/"
@@ -17,7 +18,7 @@ export function Brand({ className = "" }: BrandProps) {
         alt="FlightDeck"
         width={170}
         height={44}
-        priority
+        preload={priority}
         className="h-auto w-42.5 sm:w-47.5"
       />
     </Link>

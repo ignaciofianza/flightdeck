@@ -38,10 +38,10 @@ export function FeaturesCTA() {
             A new airport. A different aircraft. Another reason to fly.
           </p>
           <Link
-            href="#"
+            href="/register"
             className="mt-9 inline-flex items-center gap-3 rounded-xl bg-white px-6 py-4 text-sm font-semibold text-background transition hover:bg-zinc-200"
           >
-            Explore flights <ArrowUpRight size={17} />
+            Get Access <ArrowUpRight size={17} />
           </Link>
         </div>
       </motion.div>
